@@ -40,10 +40,11 @@ export default class ProductDetails {
     let activeCart = JSON.parse(localStorage.getItem("so-cart")) || [];
     if(!Array.isArray(activeCart)){
       activeCart = [];
-    }    
+    }
     activeCart.push(this.product);   
     setLocalStorage("so-cart", activeCart);      
     updateIcon();   
+
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
