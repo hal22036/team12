@@ -1,4 +1,5 @@
 import { setLocalStorage } from "./utils.mjs";
+import { updateIcon } from "./main.js";
 
 function productDetailsTemplate(product) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
@@ -40,8 +41,10 @@ export default class ProductDetails {
     if(!Array.isArray(activeCart)){
       activeCart = [];
     }
-    activeCart.push(this.product);
-    setLocalStorage("so-cart", activeCart);
+    activeCart.push(this.product);   
+    setLocalStorage("so-cart", activeCart);      
+    updateIcon();   
+
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
