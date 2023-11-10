@@ -3,7 +3,7 @@ import ProductListing from "./ProductList.mjs";
 import { setLocalStorage } from "./utils.mjs";
 
 const productDataInstance = new productData("tents");
-const element = document.querySelector(".product-list");
+const element = document.querySelector(".product.list");
 const productList = new ProductListing("Tents", productDataInstance, element);
 productList.init();
 
