@@ -4,7 +4,7 @@ import { setLocalStorage } from "./utils.mjs";
 import Alert from "./Alert";
 
 const productDataInstance = new productData("tents");
-const element = document.querySelector(".product-list");
+const element = document.querySelector(".product.list");
 const productList = new ProductListing("Tents", productDataInstance, element);
 productList.init();
 
