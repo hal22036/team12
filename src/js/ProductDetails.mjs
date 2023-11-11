@@ -1,7 +1,7 @@
 import { setLocalStorage } from "./utils.mjs";
 import { updateIcon } from "./main.js";
 
-function productDetailsTemplate(product) {
+function productDetailsTemplate(product, discountPercent) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
@@ -10,6 +10,7 @@ function productDetailsTemplate(product) {
       alt="${product.NameWithoutBrand}"
     />
     <p class="product-card__price">$${product.FinalPrice}</p>
+    <p class="product-card__discount">Discount: ${discountPercent}%</p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
     <p class="product__description">
     ${product.DescriptionHtmlSimple}
@@ -46,11 +47,21 @@ export default class ProductDetails {
     updateIcon();   
 
   }
+  productDiscount (product) {
+    var calcListPrice = (product.SuggestedRetailPrice);
+    var calcFinalPrice = (product.FinalPrice);
+    var discountPrice = calcListPrice - calcFinalPrice;
+    console.log(discountPrice);
+    var discountPercent = ((discountPrice / calcFinalPrice)* 100).toFixed(0);
+    console.log(discountPercent);
+    return discountPercent;
+    }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
+    const discountPercent = this.productDiscount(this.product);
     element.insertAdjacentHTML(
       "afterBegin",
-      productDetailsTemplate(this.product)
+      productDetailsTemplate(this.product, discountPercent)
     );
   }
 }
