@@ -1,4 +1,14 @@
+import Alert from "./Alert";
+import productData from "./ProductData.mjs";
+import ProductListing from "./ProductList.mjs";
 import { setLocalStorage } from "./utils.mjs";
+
+const productDataInstance = new productData("tents");
+const element = document.querySelector(".product-list");
+const productList = new ProductListing("Tents", productDataInstance, element);
+productList.init();
+
+new Alert();
 
 export function updateIcon() {
   let activeCart = JSON.parse(localStorage.getItem("so-cart")) || [];
