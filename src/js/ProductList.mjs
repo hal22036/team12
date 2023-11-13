@@ -24,11 +24,12 @@ export default class ProductListing {
   }
 
   filterProducts (allProducts, numberofTentsNeeded = 4) {
+
     console.log({allProducts})
     return allProducts
     // .filter((product) => product.category === "Tent")
     .slice(0, numberofTentsNeeded);
-  }
+     }
 
   renderList(list, position = "afterbegin", clearContent = true) {
     renderListWithTemplate(
