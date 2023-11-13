@@ -1,5 +1,4 @@
 import { setLocalStorage } from "./utils.mjs";
-import { updateIcon } from "./main.js";
 
 function productDetailsTemplate(product, discountPercent) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>

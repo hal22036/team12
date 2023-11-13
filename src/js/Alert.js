@@ -1,9 +1,5 @@
-
-import alertsData from './alerts.json' assert { type: 'json'}
-// const alertsData = require("./alerts.json");
-
-
-
+// import alertsData from "./alerts.json" assert { type: "json" };
+const alertsData = require("./alerts.json");
 
 // Alert.js
 class Alert {
@@ -16,9 +12,6 @@ class Alert {
 
   loadAlerts() {
     try {
-
-
-
       return alertsData;
     } catch (error) {
       // eslint-disable-next-line no-console
