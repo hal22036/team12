@@ -1,3 +1,10 @@
+
+import alertsData from './alerts.json' assert { type: 'json'}
+// const alertsData = require("./alerts.json");
+
+
+
+
 // Alert.js
 class Alert {
   constructor() {
@@ -9,7 +16,9 @@ class Alert {
 
   loadAlerts() {
     try {
-      const alertsData = require("./alerts.json");
+
+
+
       return alertsData;
     } catch (error) {
       // eslint-disable-next-line no-console

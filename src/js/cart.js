@@ -1,4 +1,6 @@
+import { updateIcon } from "./main";
 import { getLocalStorage } from "./utils.mjs";
+
 
 // const cartFooter = document.querySelector(".cart-footer");
 
@@ -49,3 +51,4 @@ const cartTotal = calculateCartTotal(); // Remove the global declaration of cart
 updateCartTotal(cartTotal);
 
 renderCartContents();
+updateIcon();
