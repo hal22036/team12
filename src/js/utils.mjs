@@ -44,3 +44,47 @@ export function renderListWithTemplate(
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+
+export function renderWithTemplate(
+  template,
+  parentElement,
+  data,
+  callback
+) {
+  parentElement.insertAdjacentHTML("afterbegin", template);
+  if (callback) {
+    callback(data);
+  }
+}
+
+async function loadTemplate(path){
+  const html = await fetch(path);
+  const template = await html.text();
+  return template;
+}
+
+export async function loadHeaderFooter(){
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerElement = document.querySelector("#header");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerElement = document.querySelector("#footer");
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+}
+
+export function updateIcon() {
+  let activeCart = JSON.parse(localStorage.getItem("so-cart")) || [];
+  setLocalStorage("so-cart", activeCart);
+
+  const cartCount = document.getElementById("cart-count");
+  console.log(cartCount);
+  let count = activeCart.length;
+  cartCount.innerHTML = count;
+
+  if (count == 0) {
+    cartCount.style.display = "none";
+  } else {
+    cartCount.style.display = "block";
+  }
+}
