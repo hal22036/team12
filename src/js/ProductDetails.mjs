@@ -1,4 +1,4 @@
-import { setLocalStorage, updateIcon } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateIcon } from "./utils.mjs";
 
 function productDetailsTemplate(product, discountPercent) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
@@ -37,12 +37,12 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
-    let activeCart = JSON.parse(localStorage.getItem("so-cart")) || [];
-    if(!Array.isArray(activeCart)){
-      activeCart = [];
-    }
-    activeCart.push(this.product);   
-    setLocalStorage("so-cart", activeCart);
+    // let activeCart = getLocalStorage("so-cart") || [];
+    // if(!Array.isArray(activeCart)){
+    //   activeCart = [];
+    // }
+    // activeCart.push(this.product);   
+    setLocalStorage("so-cart", this.product);
     updateIcon();
   }
   productDiscount (product) {
