@@ -7,11 +7,40 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const localStorageData = localStorage.getItem(key);
+
+  return localStorageData != null ? JSON.parse(localStorageData) : [];
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
+  /**
+   * Passo a passo:
+   * 
+   * 1. Verificar se tem alguma informação no localStorage
+   */
+
+  const localStorageItems = getLocalStorage(key);
+
+  const itemIndex = localStorageItems.findIndex((item) => item.product.Id === data.Id);
+
+  console.log({itemIndex});
+
+  if(itemIndex !== -1) {
+    localStorage.setItem(key, JSON.stringify(
+      localStorageItems.map((item, index) => index === itemIndex ? {
+        ...item,
+        quantity: item.quantity + 1
+      } : item)));
+  } else {
+    localStorage.setItem(key, JSON.stringify([
+      ...localStorageItems,
+      {
+        product: data,
+        quantity: 1
+      }
+    ]))
+  }
+
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
@@ -74,12 +103,11 @@ export async function loadHeaderFooter(){
 }
 
 export function updateIcon() {
-  let activeCart = JSON.parse(localStorage.getItem("so-cart")) || [];
-  setLocalStorage("so-cart", activeCart);
-
+  let activeCart = getLocalStorage("so-cart");
   const cartCount = document.getElementById("cart-count");
   console.log(cartCount);
-  let count = activeCart.length;
+  let count = 0;
+  activeCart.forEach((item) => count += item.quantity);
   cartCount.innerHTML = count;
 
   if (count == 0) {

@@ -6,14 +6,14 @@ import { getLocalStorage } from "./utils.mjs";
   function cartItemTemplate(item) {
     const newItem = `<li class="cart-card divider">
       <a href="#" class="cart-card__image">
-        <img src="${item.Image}" alt="${item.Name}" />
+        <img src="${item.product.Image}" alt="${item.product.Name}" />
       </a>
       <a href="#">
-        <h2 class="card__name">${item.Name}</h2>
+        <h2 class="card__name">${item.product.Name}</h2>
       </a>
-      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-      <p class="cart-card__quantity">qty: 1</p>
-      <p class="cart-card__price">$${item.FinalPrice}</p>
+      <p class="cart-card__color">${item.product.Colors[0].ColorName}</p>
+      <p class="cart-card__quantity">qty: ${item.quantity}</p>
+      <p class="cart-card__price">$${item.product.FinalPrice}</p>
     </li>`;
   
     return newItem;
@@ -23,8 +23,10 @@ import { getLocalStorage } from "./utils.mjs";
     const cartItems = getLocalStorage("so-cart"); // Move the declaration here
     let total = 0;
     for (const item of cartItems) {
-      total += item.FinalPrice;
+      console.log({item})
+      total += item.product.FinalPrice;
     }
+    console.log({total})
     return total;
   }
   
