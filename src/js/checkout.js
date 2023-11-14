@@ -1,3 +1,5 @@
 import { updateIcon, loadHeaderFooter } from "./utils.mjs";
-loadHeaderFooter();
-updateIcon();
+(async () => {
+  loadHeaderFooter();
+  updateIcon();
+})();

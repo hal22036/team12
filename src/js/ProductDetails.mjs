@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, updateIcon } from "./utils.mjs";
 
 function productDetailsTemplate(product, discountPercent) {
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
@@ -42,9 +42,8 @@ export default class ProductDetails {
       activeCart = [];
     }
     activeCart.push(this.product);   
-    setLocalStorage("so-cart", activeCart);      
-    updateIcon();   
-
+    setLocalStorage("so-cart", activeCart);
+    updateIcon();
   }
   productDiscount (product) {
     var calcListPrice = (product.SuggestedRetailPrice);
