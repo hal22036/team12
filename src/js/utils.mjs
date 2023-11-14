@@ -105,7 +105,7 @@ export async function loadHeaderFooter(){
 export function updateIcon() {
   let activeCart = getLocalStorage("so-cart");
   const cartCount = document.getElementById("cart-count");
-  console.log(cartCount);
+  console.log({here: cartCount});
   let count = 0;
   activeCart.forEach((item) => count += item.quantity);
   cartCount.innerHTML = count;
