@@ -5,7 +5,7 @@ function productDetailsTemplate(product, discountPercent) {
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
       class="divider"
-      src="${product.Image}"
+      src="${product.Images.PrimaryLarge}"
       alt="${product.NameWithoutBrand}"
     />
     <p class="product-card__price">$${product.FinalPrice}</p>
@@ -37,12 +37,12 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
-    // let activeCart = getLocalStorage("so-cart") || [];
-    // if(!Array.isArray(activeCart)){
-    //   activeCart = [];
-    // }
-    // activeCart.push(this.product);   
-    setLocalStorage("so-cart", this.product);
+    let activeCart = getLocalStorage("so-cart") || [];
+    if(!Array.isArray(activeCart)){
+      activeCart = [];
+    }
+    activeCart.push(this.product);   
+    setLocalStorage("so-cart", activeCart);
     updateIcon();
   }
   productDiscount (product) {
