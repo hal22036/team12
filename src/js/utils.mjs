@@ -13,12 +13,7 @@ export function getLocalStorage(key) {
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
-  /**
-   * Passo a passo:
-   * 
-   * 1. Verificar se tem alguma informação no localStorage
-   */
-
+  console.log({data});
   const localStorageItems = getLocalStorage(key);
 
   const itemIndex = localStorageItems.findIndex((item) => item.product.Id === data.Id);
