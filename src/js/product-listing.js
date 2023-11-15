@@ -1,11 +1,11 @@
 import productData from "./ProductData.mjs";
 import ProductListing from "./ProductList.mjs";
-import { loadHeaderFooter, getParams } from "./utils.mjs";
+import { loadHeaderFooter, getParams, updateIcon } from "./utils.mjs";
 // import Alert from "./Alert";
 
+
 (async () => {
-  await loadHeaderFooter();
-  // updateIcon();
+  await loadHeaderFooter();  
   const category = getParams("category");
   const productDataInstance = new productData();
   const element = document.querySelector(".product-list");
@@ -16,4 +16,5 @@ import { loadHeaderFooter, getParams } from "./utils.mjs";
   );
   productList.init();
   // new Alert();
+  updateIcon();
 })();

@@ -28,6 +28,7 @@ export default class ProductData {
     //   .then((data) => data);
   }
   async findProductById(id) {
+    // const response = await fetch(baseURL + `product/${id}`);
     const response = await fetch(`http://server-nodejs.cit.byui.edu:3000/product/${id}`);
     const data = await convertToJson(response);
     return data.Result;
