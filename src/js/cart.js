@@ -6,4 +6,5 @@ import { loadHeaderFooter, updateIcon } from "./utils.mjs";
   updateIcon();
   const cart = new ShoppingCart("so-cart", ".product-list");
   cart.renderCartContents();
+  cart.updateCartTotal();
 })();
