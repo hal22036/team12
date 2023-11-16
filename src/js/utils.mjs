@@ -13,17 +13,12 @@ export function getLocalStorage(key) {
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
-  /**
-   * Passo a passo:
-   * 
-   * 1. Verificar se tem alguma informação no localStorage
-   */
-
+  // console.log({data});
   const localStorageItems = getLocalStorage(key);
 
   const itemIndex = localStorageItems.findIndex((item) => item.product.Id === data.Id);
 
-  console.log({itemIndex});
+  // console.log({itemIndex});
 
   if(itemIndex !== -1) {
     localStorage.setItem(key, JSON.stringify(
@@ -105,7 +100,7 @@ export async function loadHeaderFooter(){
 export function updateIcon() {
   let activeCart = getLocalStorage("so-cart");
   const cartCount = document.getElementById("cart-count");
-  console.log(cartCount);
+  // console.log(cartCount);
   let count = 0;
   activeCart.forEach((item) => count += item.quantity);
   cartCount.innerHTML = count;

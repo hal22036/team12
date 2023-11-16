@@ -4,9 +4,10 @@ import { getLocalStorage } from "./utils.mjs";
 
   
   function cartItemTemplate(item) {
+    console.log({item})
     const newItem = `<li class="cart-card divider">
       <a href="#" class="cart-card__image">
-        <img src="${item.product.Image}" alt="${item.product.Name}" />
+        <img src="${item.product.Images.PrimaryMedium}" alt="${item.product.Name}" />
       </a>
       <a href="#">
         <h2 class="card__name">${item.product.Name}</h2>
@@ -54,6 +55,7 @@ export default class ShoppingCart {
   }
  renderCartContents() {
     const cartItems = getLocalStorage("so-cart");
+    console.log({cartItems});
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
   }
