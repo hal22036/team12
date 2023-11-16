@@ -7,6 +7,6 @@ import productDetails from "./ProductDetails.mjs";
   const dataSource = new ProductData("tents");
   const productId = getParams("product");
   const product = new productDetails(productId, dataSource);
-  product.init();  
-  updateIcon(); 
+  product.init();
+  updateIcon();
 })();
