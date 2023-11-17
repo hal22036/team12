@@ -1,7 +1,7 @@
 // import "dotenv/config";
 const baseURL = import.meta.env.VITE_SERVER_URL || "http://server-nodejs.cit.byui.edu:3000/";
 async function convertToJson(res) {
-  // console.log({ok: res.ok})
+  console.log({ok: res.ok})
   if (res.ok) {
     return await res.json();
   } else {
