@@ -1,10 +1,15 @@
-import ShoppingCart from "./shoppingcart.mjs";
+import ShoppingCart, { updateCartTotal } from "./shoppingcart.mjs";
 import { loadHeaderFooter, updateIcon } from "./utils.mjs";
 
-(async () => {
+document.addEventListener("DOMContentLoaded", async function () {
   await loadHeaderFooter();
   updateIcon();
+
   const cart = new ShoppingCart("so-cart", ".product-list");
   cart.renderCartContents();
-  cart.updateCartTotal();
+
+  // Wait for the rendering to complete before updating the cart total
+  setTimeout(() => {
+    updateCartTotal();
+  }, 0);
 })();

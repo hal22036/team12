@@ -29,7 +29,7 @@ function calculateCartTotal() {
   return total;
 }
 
-function updateCartTotal() {
+export function updateCartTotal() {
   const cartFooterElement = document.querySelector(".cart-footer");
   const cartTotal = calculateCartTotal();
 
