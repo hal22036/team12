@@ -1,6 +1,8 @@
-import { getLocalStorage, setLocalStorage, updateIcon } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateIcon, calculateDiscountPercent } from "./utils.mjs";
 
 function productDetailsTemplate(product, discountPercent) {
+  const discountInfo = discountPercent > 0? `<p class ="product-card__discount">Discount: ${discountPercent}%</p>`: '';
+
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
@@ -51,7 +53,7 @@ export default class ProductDetails {
     }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
-    const discountPercent = this.productDiscount(this.product);
+    const discountPercent = calculateDiscountPercent(this.product);
     element.insertAdjacentHTML(
       "afterBegin",
       productDetailsTemplate(this.product, discountPercent)
