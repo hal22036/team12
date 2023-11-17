@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="./js/main.js" type="module"></script>
@@ -72,6 +72,65 @@
           </li>
         </ul>
       </section>
+
+      <form id="subscriptionForm">
+        <div class="container">
+          <h2>Subscribe to our Newsletter</h2>
+        </div>
+
+        <div class="container" style="background-color: white">
+          <!-- Your form fields go here -->
+          <input
+            type="text"
+            placeholder="First Name: Jane"
+            name="fname"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name: Doe"
+            name="lname"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Email address: janedoe@gmail.com"
+            name="mail"
+            required
+          />
+
+          <div class="checkbox-container">
+            <label>
+              <input
+                class="subscribe"
+                type="checkbox"
+                checked="checked"
+                name="subscribe"
+              />
+              Send me the Newsletter
+            </label>
+          </div>
+
+          <div class="checkbox-container">
+            <label>
+              <input
+                class="deals"
+                type="checkbox"
+                checked="checked"
+                name="deals"
+              />
+              Send me deals
+            </label>
+          </div>
+        </div>
+
+        <div class="container">
+          <button type="button" id="subscribeButton">Subscribe</button>
+        </div>
+        <div id="subscriptionMessage" class="container">
+          Thank you, You have been subscribed!
+        </div>
+      </form>
     </main>
     <footer id="footer"></footer>
   </body>
