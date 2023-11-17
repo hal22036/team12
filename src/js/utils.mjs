@@ -111,3 +111,18 @@ export function updateIcon() {
     cartCount.style.display = "block";
   }
 }
+
+export function calculateDiscountPercent(product) {
+  const calcListPrice = product.SuggestedRetailPrice;
+  const calcFinalPrice = product.FinalPrice;
+  const discountPrice = calcListPrice - calcFinalPrice;
+  const discountPercent = ((discountPrice / calcListPrice) * 100).toFixed(0);
+  return discountPercent;
+}
+
+export function calculateDiscountAmount(product) {
+  const calcListPrice = product.SuggestedRetailPrice;
+  const calcFinalPrice = product.FinalPrice;
+  const discountPrice = calcListPrice - calcFinalPrice;
+  return discountPrice;
+}

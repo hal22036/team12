@@ -7,6 +7,7 @@
   --tertiary-color: #a4b8c4;
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
+  --red: red;
 
   /* sizes */
   --font-base: 18px;
@@ -251,6 +252,40 @@ button {
   margin: 0.5em 0;
 }
 
+.product-card__discount
+{
+  color: var(--red);
+}
+
+.discountPercent{
+ position: relative;
+ display: inline-block;
+}
+
+.circle {
+  position: absolute;
+  top: -5px; /* Adjust this value to position the circle vertically */
+  right: -50px; /* Adjust this value to position the circle horizontally */
+  width: 50px; /* Diameter of the circle */
+  height: 30px;
+  border-radius: 50%; /* Make it a circle */
+  background-color: red; /* Color of the circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px; /* Adjust font size */
+  font-weight: bold;
+}
+
+.product-card__price, 
+.discountAmount{
+font-size: 12px;
+}
+
+.discountAmount{
+  color:var(--red);
+}
 .card__brand {
   font-size: var(--small-font);
 }
