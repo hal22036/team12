@@ -37,6 +37,7 @@ export default class ProductDetails {
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addToCart.bind(this));
+    window.addEventListener('resize', this.updateImageSize.bind(this));  
   }
   addToCart() {  
     setLocalStorage("so-cart", this.product);
@@ -51,12 +52,52 @@ export default class ProductDetails {
     console.log(discountPercent);
     return discountPercent;
     }
-  renderProductDetails(selector) {
-    const element = document.querySelector(selector);
-    const discountPercent = calculateDiscountPercent(this.product);
-    element.insertAdjacentHTML(
-      "afterBegin",
-      productDetailsTemplate(this.product, discountPercent)
+    renderProductDetails(selector) {
+      const element = document.querySelector(selector);
+      const discountPercent = calculateDiscountPercent(this.product);
+  
+      // Create a new Image object and set its source
+      var image = new Image();
+      image.src = this.product.Images.PrimaryLarge;
+  
+      // Adjust the image width based on screen width
+      var screenWidth = window.innerWidth;
+      if (screenWidth < 600) {
+        image.width = 300;
+      } else if (screenWidth < 1200) {
+        image.width = 600;
+      } else {
+        image.width = 800;
+      }
+
+      element.insertAdjacentHTML(
+        "afterBegin",
+        productDetailsTemplate(this.product, discountPercent)
+      );
+  
+      // Get the image element from the DOM after it's been added
+      var existingImage = document.querySelector('.product-detail img');
+  
+      // Update the existing image with the new source and width
+      existingImage.src = image.src;
+      existingImage.width = image.width;
+  
+      // Add window resize event listener to adjust image size dynamically
+      window.addEventListener('resize', () => {var screenWidth = window.innerWidth;
+  
+      // Adjust the image width based on screen width
+        if (screenWidth < 600) {
+          existingImage.width = 300;
+        } else if (screenWidth < 800) {
+          existingImage.width = 400;
+        } else if (screenWidth < 1000) {
+          existingImage.width = 500
+        } else if (screenWidth < 1200) {
+          existingImage.width = 600;
+        } else {
+          existingImage.width = 800;
+        }
+      }
     );
   }
 }
