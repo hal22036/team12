@@ -6,12 +6,20 @@
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="./js/main.js" type="module"></script>
+    <script src="./js/search.js" type="module"></script>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   </head>
   <body>
     <header class="divider" id="header"></header>
     <main class="divider">
       <div class="hero">
+        <form id="searchForm">
+          <input type="text" placeholder="Search.." name="search" id="searchInput">
+          <button type="submit">Search</button>
+        </form>
+        <ul id="productList" class="product-grid"></ul>
+      </div>
+    </main>
         <img
           src="/images/banner-sm.jpg"
           srcset="images/banner-sm.jpg 500w, images/banner.jpg"
