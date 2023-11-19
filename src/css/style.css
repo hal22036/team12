@@ -217,6 +217,32 @@ button {
 }
 /* End cart icon styles */
 
+/* checkout form */
+
+.checkout-form {
+  padding: 0.5em;
+}
+.checkout-form label {
+  display: block;
+}
+.checkout-form input {
+  width: 100%;
+  font-size: 1.2em;
+}
+.checkout-summary > ul {
+  padding-left: 5px;
+  list-style-type: none;
+}
+.checkout-summary li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout-summary input {
+  width: 25%;
+  font-size: 1em;
+}
+
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */

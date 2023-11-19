@@ -1,4 +1,4 @@
-import productData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductListing from "./ProductList.mjs";
 import { loadHeaderFooter, getParams, updateIcon } from "./utils.mjs";
 // import Alert from "./Alert";
@@ -6,11 +6,11 @@ import { loadHeaderFooter, getParams, updateIcon } from "./utils.mjs";
 (async () => {
   await loadHeaderFooter();
   const category = getParams("category");
-  const productDataInstance = new productData();
+  const ExternalServicesInstance = new ExternalServices();
   const element = document.querySelector(".product-list");
   const productList = new ProductListing(
     category,
-    productDataInstance,
+    ExternalServicesInstance,
     element
   );
   productList.init();

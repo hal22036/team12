@@ -1,5 +1,5 @@
 // import "dotenv/config";
-const baseURL = import.meta.env.VITE_SERVER_URL || "http://server-nodejs.cit.byui.edu:3000/";
+const baseURL = import.meta.env.VITE_SERVER_URL || "https://wdd330-backend.onrender.com/";
 async function convertToJson(res) {
   console.log({ok: res.ok})
   if (res.ok) {
@@ -9,7 +9,7 @@ async function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     // console.log({category})
     // this.category = category;
@@ -33,5 +33,16 @@ export default class ProductData {
     return data.Result;
     // const products = await this.getData();
     // return products.find((item) => item.Id === id);
+  }
+
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }
