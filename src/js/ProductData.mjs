@@ -1,7 +1,6 @@
 // import "dotenv/config";
 const baseURL = import.meta.env.VITE_SERVER_URL || "https://wdd330-backend.onrender.com/";
 async function convertToJson(res) {
-  console.log({ok: res.ok})
   if (res.ok) {
     return await res.json();
   } else {
@@ -22,6 +21,10 @@ export default class ProductData {
   async findProductById(id) {
     const response = await fetch(baseURL + `product/${id}`);
     const data = await convertToJson(response);
+    console.log({product: data});
     return data.Result;
   }
 }
+
+
+// To access: product.Result.Images
