@@ -28,19 +28,16 @@ export default class ProductListing {
   }
   async init() {
     const list = await this.dataSource.getData(this.category);
-    console.log({list});
     const filteredTents = this.filterProducts(list, 4);
     this.renderList(filteredTents, 'afterbegin', true);
     document.querySelector(".title").innerHTML = this.category;
   }
 
   filterProducts (allProducts, numberofTentsNeeded = 4) {
-
-    // console.log({allProducts})
     return allProducts
     // .filter((product) => product.category === "Tent")
     .slice(0, numberofTentsNeeded);
-     }
+  }
 
   renderList(list, position = "afterbegin", clearContent = true) {
     renderListWithTemplate(
