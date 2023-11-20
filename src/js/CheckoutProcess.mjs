@@ -13,19 +13,6 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
-function packageItems(items) {
-  const simplifiedItems = items.map((item) => {
-    console.log(item);
-    return {
-      id: item.Id,
-      price: item.FinalPrice,
-      name: item.Name,
-      quantity: 1,
-    };
-  });
-  return simplifiedItems;
-}
-
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
     this.key = key;
@@ -36,6 +23,26 @@ export default class CheckoutProcess {
     this.tax = 0;
     this.orderTotal = 0;
   }
+
+  packageItems(items) {
+    console.log("Received items:", items);
+    if (!Array.isArray(items)) {
+      console.error("Error: 'items' is not an array");
+      return [];
+    }
+    console.log("line 33");
+    const simplifiedItems = items.map((item) => {
+      console.log("line 35", item);
+      return {
+        id: item.product.Id,
+        price: item.product.FinalPrice,
+        name: item.product.Name,
+        quantity: item.quantity,
+      };
+    });
+    console.log("simplified", simplifiedItems);
+    return simplifiedItems;
+  }
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSummary();
@@ -44,18 +51,37 @@ export default class CheckoutProcess {
     const summaryElement = document.querySelector(
       this.outputSelector + " #cartTotal"
     );
+    console.log("Summary Element:", summaryElement);
+
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    itemNumElement.innerText = this.list.length;
-    // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice);
-    this.itemTotal = amounts.reduce((sum, item) => sum + item);
+    itemNumElement.innerText = this.list.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+
+    // Log the entire list of items
+    console.log("List of items:", this.list);
+
+    // Calculate the total of all the items in the cart
+    const amounts = this.list
+      // .filter((item) => typeof item.product.FinalPrice === "number")
+      .map((item) => item.product.FinalPrice * item.quantity);
+
+    this.itemTotal = amounts.reduce((sum, item) => sum + item, 0);
     summaryElement.innerText = "$" + this.itemTotal;
   }
+
   calculateOrdertotal() {
+    // Assuming calculateItemSummary has been called before calculateOrdertotal
     this.shipping = 10 + (this.list.length - 1) * 2;
+    console.log("shipping", this.shipping);
+  
+    // Ensure this.itemTotal is properly calculated in calculateItemSummary
     this.tax = (this.itemTotal * 0.06).toFixed(2);
+    console.log("tax", this.tax);
+  
     this.orderTotal = (
       parseFloat(this.itemTotal) +
       parseFloat(this.shipping) +
@@ -63,12 +89,22 @@ export default class CheckoutProcess {
     ).toFixed(2);
     this.displayOrderTotals();
   }
+  
   displayOrderTotals() {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");
     const orderTotal = document.querySelector(
       this.outputSelector + " #orderTotal"
     );
+
+    console.log("Shipping Element:", shipping);
+    console.log("Tax Element:", tax);
+    console.log("Order Total Element:", orderTotal);
+
+    console.log("Shipping Value:", this.shipping);
+    console.log("Tax Value:", this.tax);
+    console.log("Order Total Value:", this.orderTotal);
+
     shipping.innerText = "$" + this.shipping;
     tax.innerText = "$" + this.tax;
     orderTotal.innerText = "$" + this.orderTotal;
@@ -77,12 +113,17 @@ export default class CheckoutProcess {
     const formElement = document.forms["checkout"];
 
     const json = formDataToJSON(formElement);
-    // add totals, and item details
+    // Add totals, and item details
     json.orderDate = new Date();
+
+    // Ensure that totals are up-to-date
+    await this.calculateOrdertotal(); // Add the await here
+
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
     json.shipping = this.shipping;
-    json.items = packageItems(this.list);
+    json.items = this.packageItems(this.list);
+
     console.log(json);
     try {
       const res = await services.checkout(json);
