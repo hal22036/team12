@@ -1,5 +1,5 @@
 import { updateIcon, loadHeaderFooter } from "./utils.mjs";
-import CheckoutProcess from "./checkoutprocess.mjs";
+import CheckoutProcess from "./CheckoutProcess.mjs";
 
 const myCheckout = new CheckoutProcess("so-cart", ".checkout-summary");
 myCheckout.init();

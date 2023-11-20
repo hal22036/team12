@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     updateCartTotal();
   }, 0);
   // Add event listener for the checkout button
-  const checkoutButton = document.getElementById('checkoutButton');  
+  const checkoutButton = document.getElementById("checkoutButton");
   if (checkoutButton) {
-    checkoutButton.addEventListener('click', function () {
+    checkoutButton.addEventListener("click", function () {
       // Redirect to the checkout page
-      window.location.href = '/checkout/index.html';
+      window.location.href = "/checkout/index.html";
     });
   }
 });
