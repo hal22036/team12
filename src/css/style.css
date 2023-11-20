@@ -252,14 +252,13 @@ button {
   margin: 0.5em 0;
 }
 
-.product-card__discount
-{
+.product-card__discount {
   color: var(--red);
 }
 
-.discountPercent{
- position: relative;
- display: inline-block;
+.discountPercent {
+  position: relative;
+  display: inline-block;
 }
 
 .circle {
@@ -278,13 +277,13 @@ button {
   font-weight: bold;
 }
 
-.product-card__price, 
-.discountAmount{
-font-size: 12px;
+.product-card__price,
+.discountAmount {
+  font-size: 12px;
 }
 
-.discountAmount{
-  color:var(--red);
+.discountAmount {
+  color: var(--red);
 }
 .card__brand {
   font-size: var(--small-font);
