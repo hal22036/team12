@@ -25,14 +25,11 @@ export default class CheckoutProcess {
   }
 
   packageItems(items) {
-    console.log("Received items:", items);
     if (!Array.isArray(items)) {
       console.error("Error: 'items' is not an array");
       return [];
     }
-    console.log("line 33");
     const simplifiedItems = items.map((item) => {
-      console.log("line 35", item);
       return {
         id: item.product.Id,
         price: item.product.FinalPrice,
@@ -51,7 +48,6 @@ export default class CheckoutProcess {
     const summaryElement = document.querySelector(
       this.outputSelector + " #cartTotal"
     );
-    console.log("Summary Element:", summaryElement);
 
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
@@ -60,9 +56,6 @@ export default class CheckoutProcess {
       (sum, item) => sum + item.quantity,
       0
     );
-
-    // Log the entire list of items
-    console.log("List of items:", this.list);
 
     // Calculate the total of all the items in the cart
     const amounts = this.list
@@ -73,9 +66,7 @@ export default class CheckoutProcess {
     summaryElement.innerText = "$" + this.itemTotal.toFixed(2);
   }
 
-  calculateOrdertotal() {
-    // Assuming calculateItemSummary has been called before calculateOrdertotal
-  
+  calculateOrdertotal() {  
     // Calculate total quantity of items
     let totalQuantity = 0;
     this.list.forEach(item => {
@@ -103,14 +94,6 @@ export default class CheckoutProcess {
     const orderTotal = document.querySelector(
       this.outputSelector + " #orderTotal"
     );
-
-    console.log("Shipping Element:", shipping);
-    console.log("Tax Element:", tax);
-    console.log("Order Total Element:", orderTotal);
-
-    console.log("Shipping Value:", this.shipping);
-    console.log("Tax Value:", this.tax);
-    console.log("Order Total Value:", this.orderTotal);
 
     shipping.innerText = "$" + this.shipping;
     tax.innerText = "$" + this.tax;

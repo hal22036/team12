@@ -36,13 +36,30 @@ export default class ExternalServices {
   }
 
   async checkout(payload) {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    };
-    return await fetch(baseURL + "checkout/", options).then(convertToJson);
+    console.log("Checkout Payload:", payload); // Log the payload
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+  
+      const response = await fetch(baseURL + "checkout/", options);
+      const data = await convertToJson(response);
+  
+      if (response.ok) {
+        return data;
+      } else {
+        console.error(`Error during checkout. Server responded with status ${response.status}.`);
+        throw new Error("Bad Response");
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      throw new Error("Bad Response");
+    }
   }
+  
+  
 }
