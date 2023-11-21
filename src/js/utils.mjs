@@ -122,3 +122,22 @@ export function calculateDiscountAmount(product) {
   const discountPrice = calcListPrice - calcFinalPrice;
   return discountPrice;
 }
+
+export function alertMessage(message, scroll = true) {
+  const mainElement = qs("main");
+  const alertElement = document.createElement("div");
+  alertElement.className = "alert";
+  alertElement.textContent = message;
+
+  if (scroll) {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  mainElement.insertAdjacentElement("afterbegin", alertElement);
+
+  // Automatically remove the alert after a certain time (e.g., 5 seconds)
+  setTimeout(() => {
+    alertElement.remove();
+  }, 5000); // 5000 milliseconds (5 seconds)
+}
