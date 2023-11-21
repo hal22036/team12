@@ -12,4 +12,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   setTimeout(() => {
     updateCartTotal();
   }, 0);
-})();
+  // Add event listener for the checkout button
+  const checkoutButton = document.getElementById("checkoutButton");
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", function () {
+      // Redirect to the checkout page
+      window.location.href = "/checkout/index.html";
+    });
+  }
+});

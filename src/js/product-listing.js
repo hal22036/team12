@@ -1,4 +1,4 @@
-import productData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductListing from "./ProductList.mjs";
 import { loadHeaderFooter, getParams, updateIcon } from "./utils.mjs";
 // import Alert from "./Alert";
@@ -6,14 +6,12 @@ import { loadHeaderFooter, getParams, updateIcon } from "./utils.mjs";
 (async () => {
   await loadHeaderFooter();
   const category = getParams("category");
-  // first create an instance of our ProductData class.
-  const productDataInstance = new productData();
-  // then get the element we want the product list to render in
+  const ExternalServicesInstance = new ExternalServices();
   const element = document.querySelector(".product-list");
   // then create an instance of our ProductList class and send it the correct information.
   const productList = new ProductListing(
     category,
-    productDataInstance,
+    ExternalServicesInstance,
     element
   );
   // finally call the init method to show our products

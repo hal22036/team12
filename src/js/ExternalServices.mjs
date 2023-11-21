@@ -8,7 +8,7 @@ async function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     // this.category = category;
     // this.path = `/json/${this.category}.json`;
@@ -24,6 +24,34 @@ export default class ProductData {
     console.log({product: data});
     return data.Result;
   }
+
+  async checkout(payload) {
+    console.log("Checkout Payload:", payload); // Log the payload
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+  
+      const response = await fetch(baseURL + "checkout/", options);
+      const data = await convertToJson(response);
+  
+      if (response.ok) {
+        return data;
+      } else {
+        console.error(`Error during checkout. Server responded with status ${response.status}.`);
+        throw new Error("Bad Response");
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      throw new Error("Bad Response");
+    }
+  }
+  
+  
 }
 
 
