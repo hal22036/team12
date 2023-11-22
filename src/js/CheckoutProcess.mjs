@@ -109,28 +109,29 @@ export default class CheckoutProcess {
     json.orderDate = new Date();
 
     // Ensure that totals are up-to-date
-    await this.calculateOrdertotal(); // Add the await here
+    this.calculateOrdertotal(); // Add the await here
 
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = this.packageItems(this.list);
 
-    console.log(json);
     try {
+      console.log({json});
       const res = await services.checkout(json);
-      console.log(res);
-      setLocalStorage("so-cart", []);
+      console.log({shouldBeHere: res});
+      // setLocalStorage("so-cart", []);
+      localStorage.removeItem("so-cart");
       location.assign("/checkout/success.html");
     } catch (err) {
       removeAllAlerts();
-      for(let message in err.message){
-        console.log({
-          message: err.message
-        });
-        alertMessage(err.message[message]);
-      }
       console.log(err);
+      // P.S: Passing err.data, because the error structure was customized here
+      // The error object structure is as follow: { data: array[{[key: string]: string}], error: new Error}
+      err.data.forEach((errorItem) => {
+        alertMessage(errorItem['message']);
+
+      })
     }
   }
 }

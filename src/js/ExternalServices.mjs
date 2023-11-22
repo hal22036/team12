@@ -35,7 +35,23 @@ export default class ExternalServices {
         },
         body: JSON.stringify(payload),
       };
-      return await fetch(baseURL + "checkout/", options).then(convertToJson);
+
+      const checkoutReturn = await fetch(baseURL + "checkout/", options);
+      if (checkoutReturn.status === 400) {
+        const errorData = await checkoutReturn.json();
+        console.log({errorData})
+        const errorMessages = Object.keys(errorData).map((key) => {
+          return {
+            message: errorData[key]
+          }
+
+        });
+        throw {
+          data: errorMessages,
+          error: new Error()
+        }
+      }
+      return checkoutReturn;
       // const response = await fetch(baseURL + "checkout/", options);
       // const data = await convertToJson(response);
   
@@ -46,8 +62,12 @@ export default class ExternalServices {
       //   throw new Error("Bad Response");
       // }
     } catch (error) {
+      // console.log({messages: JSON.parse(error.message)});
       console.error('Error during checkout:', error);
-      throw new Error("Bad Response");
+      throw {
+        data: error.data,
+        error: new Error()
+      };
     }
   }
 }

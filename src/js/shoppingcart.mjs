@@ -1,6 +1,7 @@
 import { getLocalStorage, updateIcon } from "./utils.mjs";
 
 function cartItemTemplate(item) {
+  console.log({item})
   const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img src="${item.product.Images.PrimaryMedium}" alt="${item.product.Name}" />

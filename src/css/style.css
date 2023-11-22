@@ -410,8 +410,6 @@ button {
   font-weight: bold;
 }
 
-
-
 .slider {
   width: 100%;
   /* height: 300px; */
@@ -457,7 +455,7 @@ button {
   top: 45%;
   right: 2%;
 }
-.alert{
+.alert {
   width: 100%;
   height: 40px;
   display: flex;
@@ -465,11 +463,6 @@ button {
   align-items: center;
   margin-bottom: 8px;
 }
-
-
-
-
-
 
 @media screen and (min-width: 500px) {
   body {
