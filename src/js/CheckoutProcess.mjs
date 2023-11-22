@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, removeAllAlerts, alertMessage, setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -13,6 +13,9 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
+
+  
+
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
     this.key = key;
@@ -23,7 +26,10 @@ export default class CheckoutProcess {
     this.tax = 0;
     this.orderTotal = 0;
   }
-
+  init() {
+    this.list = getLocalStorage(this.key);
+    this.calculateItemSummary();
+  }
   packageItems(items) {
     if (!Array.isArray(items)) {
       console.error("Error: 'items' is not an array");
@@ -39,10 +45,6 @@ export default class CheckoutProcess {
     });
     console.log("simplified", simplifiedItems);
     return simplifiedItems;
-  }
-  init() {
-    this.list = getLocalStorage(this.key);
-    this.calculateItemSummary();
   }
   calculateItemSummary() {
     const summaryElement = document.querySelector(
@@ -118,7 +120,16 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
     } catch (err) {
+      removeAllAlerts();
+      for(let message in err.message){
+        console.log({
+          message: err.message
+        });
+        alertMessage(err.message[message]);
+      }
       console.log(err);
     }
   }
