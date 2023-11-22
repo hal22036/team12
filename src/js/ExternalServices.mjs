@@ -1,10 +1,10 @@
 // import "dotenv/config";
-const baseURL = import.meta.env.VITE_SERVER_URL || "https://wdd330-backend.onrender.com/";
+const baseURL = "https://wdd330-backend.onrender.com/";
 async function convertToJson(res) {
   if (res.ok) {
     return await res.json();
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: data };
   }
 }
 
@@ -21,7 +21,7 @@ export default class ExternalServices {
   async findProductById(id) {
     const response = await fetch(baseURL + `product/${id}`);
     const data = await convertToJson(response);
-    console.log({product: data});
+    //console.log({product: data});
     return data.Result;
   }
 
@@ -35,24 +35,44 @@ export default class ExternalServices {
         },
         body: JSON.stringify(payload),
       };
-  
-      const response = await fetch(baseURL + "checkout/", options);
-      const data = await convertToJson(response);
-  
-      if (response.ok) {
-        return data;
-      } else {
-        console.error(`Error during checkout. Server responded with status ${response.status}.`);
-        throw new Error("Bad Response");
+
+      const checkoutReturn = await fetch(baseURL + "checkout/", options);
+      if (checkoutReturn.status === 400) {
+        const errorData = await checkoutReturn.json();
+        console.log({errorData})
+        const errorMessages = Object.keys(errorData).map((key) => {
+          return {
+            message: errorData[key]
+          }
+
+        });
+        throw {
+          data: errorMessages,
+          error: new Error()
+        }
       }
+      return checkoutReturn;
+      // const response = await fetch(baseURL + "checkout/", options);
+      // const data = await convertToJson(response);
+  
+      // if (response.ok) {
+      //   return data;
+      // } else {
+      //   console.error(`Error during checkout. Server responded with status ${response.status}.`);
+      //   throw new Error("Bad Response");
+      // }
     } catch (error) {
+      // console.log({messages: JSON.parse(error.message)});
       console.error('Error during checkout:', error);
-      throw new Error("Bad Response");
+      throw {
+        data: error.data,
+        error: new Error()
+      };
     }
   }
-  
-  
 }
 
+  
 
-// To access: product.Result.Images
+
+

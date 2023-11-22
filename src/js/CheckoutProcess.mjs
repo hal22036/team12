@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, removeAllAlerts, alertMessage, setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -13,6 +13,9 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
+
+  
+
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
     this.key = key;
@@ -23,7 +26,10 @@ export default class CheckoutProcess {
     this.tax = 0;
     this.orderTotal = 0;
   }
-
+  init() {
+    this.list = getLocalStorage(this.key);
+    this.calculateItemSummary();
+  }
   packageItems(items) {
     if (!Array.isArray(items)) {
       console.error("Error: 'items' is not an array");
@@ -39,10 +45,6 @@ export default class CheckoutProcess {
     });
     console.log("simplified", simplifiedItems);
     return simplifiedItems;
-  }
-  init() {
-    this.list = getLocalStorage(this.key);
-    this.calculateItemSummary();
   }
   calculateItemSummary() {
     const summaryElement = document.querySelector(
@@ -107,19 +109,29 @@ export default class CheckoutProcess {
     json.orderDate = new Date();
 
     // Ensure that totals are up-to-date
-    await this.calculateOrdertotal(); // Add the await here
+    this.calculateOrdertotal(); // Add the await here
 
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = this.packageItems(this.list);
 
-    console.log(json);
     try {
+      console.log({json});
       const res = await services.checkout(json);
-      console.log(res);
+      console.log({shouldBeHere: res});
+      // setLocalStorage("so-cart", []);
+      localStorage.removeItem("so-cart");
+      location.assign("/checkout/success.html");
     } catch (err) {
+      removeAllAlerts();
       console.log(err);
+      // P.S: Passing err.data, because the error structure was customized here
+      // The error object structure is as follow: { data: array[{[key: string]: string}], error: new Error}
+      err.data.forEach((errorItem) => {
+        alertMessage(errorItem['message']);
+
+      })
     }
   }
 }

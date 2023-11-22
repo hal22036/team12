@@ -1,6 +1,7 @@
 import { getLocalStorage, updateIcon } from "./utils.mjs";
 
 function cartItemTemplate(item) {
+  console.log({item})
   const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img src="${item.product.Images.PrimaryMedium}" alt="${item.product.Name}" />
@@ -80,10 +81,21 @@ export default class ShoppingCart {
   constructor(key, parentSelector) {
     this.key = key;
     this.parentSelector = parentSelector;
+    this.total = 0;
   }
- renderCartContents() {
-    const cartItems = getLocalStorage("so-cart");
+  async init(){
+    const list = getLocalStorage(this.key);
+    this.calculateListTotal(list);
+    this.renderCartContents(list);
+  }
+  calculateListTotal(list){
+    const amounts = list.map((item) => item.FinalPrice);
+    this.total = amounts.reduce((sum, item) => sum + item);
+  }
+  renderCartContents() {
+    const cartItems = getLocalStorage(this.key);
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
+    document.querySelector(".cart-total").innerText += `$${this.total}`;
   }
 }
