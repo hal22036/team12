@@ -280,9 +280,13 @@ button {
 }
 
 .product-card__discount {
-  color: var(--red);
+  position: relative;
+  display: inline-block;
 }
-
+.product-card__priceSug {
+  color: var(--red);
+  font-weight: bolder;
+}
 .discountPercent {
   position: relative;
   display: inline-block;
@@ -303,7 +307,21 @@ button {
   font-size: 12px; /* Adjust font size */
   font-weight: bold;
 }
-
+.circle2 {
+  position: absolute;
+  top: -5px; /* Adjust this value to position the circle vertically */
+  right: -100px; /* Adjust this value to position the circle horizontally */
+  width: 100px; /* Diameter of the circle */
+  height: 30px;
+  border-radius: 10px; /* Make it a circle */
+  background-color: red; /* Color of the circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 15px; /* Adjust font size */
+  font-weight: bolder;
+}
 .product-card__price,
 .discountAmount {
   font-size: 12px;

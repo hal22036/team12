@@ -19,8 +19,9 @@ function productDetailsTemplate(product, discountPercent) {
 
 
 
-    <p class="product-card__price">$${product.FinalPrice}</p>
-    <p class="product-card__discount">Discount: ${discountPercent}%</p>
+    <p class="product-card__priceSug">Price:$${product.FinalPrice}</p>
+    <p class="product-card__discount"><span class="circle2">Save ${discountPercent}%</span></p>
+    <p class="product-card_price"><s>Original Price: $${product.SuggestedRetailPrice}</s></p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
     <p class="product__description">
     ${product.DescriptionHtmlSimple}
