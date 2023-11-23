@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/signup.css" />
+  <script src="https://kit.fontawesome.com/41edc9108f.js" crossorigin="anonymous"></script>
+  <title>User Sign-up</title>
+</head>
+<body>
+    <nav>
+        <ul>
+          <li><a href="index.html">Sleep Outside</a></li>
+          </ul>
+        </nav>
+        <div class="container">
+        <div class="sign-box">
+            <h2>User Sign-up</h2>
+            <form>
+                <div class="input-box">
+                    <div class="input-field" id="nameeField">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="name">
+                    </div>
+                     <br>
+                    <div class="input-field">
+                        <i class="fa-solid fa-house-user"></i>
+                        <input type="address" placeholder="address">
+                    </div>
+                     <br>
+                    <div class="input-field">
+                        <i class="fa-solid fa-square-envelope"></i>
+                        <input type="email" placeholder="email">
+                    </div>
+                </div>
+                <br>
+                <div class="btn-field">
+                    <button type="submit" id="createBtn">Create User</button>
+                </div>
+            </form>
+            <div id="message" class="message"></div>
+        </div>
+        </div>
+  <script>
+    document.getElementById("input-box").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const email = document.getElementById("email").value;
+
+      const userData = {
+        name: name,
+        address: address,
+        email: email,
+      };
+      document.getElementById('createBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      displayMessage('User created successfully!');
+      });
+      function displayMessage(message) {
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = message;
+        messageElement.style.display = 'block';
+        }
+      });
+    
+  </script>
+</body>
+</html>
