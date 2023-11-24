@@ -1,5 +1,5 @@
-import { getLocalStorage, removeAllAlerts, alertMessage, setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
+import { alertMessage, getLocalStorage, removeAllAlerts } from "./utils.mjs";
 
 const services = new ExternalServices();
 function formDataToJSON(formElement) {
@@ -12,9 +12,6 @@ function formDataToJSON(formElement) {
 
   return convertedJSON;
 }
-
-
-  
 
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
@@ -63,24 +60,24 @@ export default class CheckoutProcess {
     const amounts = this.list
       .filter((item) => typeof item.product.FinalPrice === "number")
       .map((item) => item.product.FinalPrice * item.quantity);
-      
+
     this.itemTotal = amounts.reduce((sum, item) => sum + item, 0);
     summaryElement.innerText = "$" + this.itemTotal.toFixed(2);
   }
 
-  calculateOrdertotal() {  
+  calculateOrdertotal() {
     // Calculate total quantity of items
     let totalQuantity = 0;
-    this.list.forEach(item => {
+    this.list.forEach((item) => {
       totalQuantity += item.quantity;
     });
-  
+
     // Calculate shipping based on total quantity
     this.shipping = 10 + Math.max(0, totalQuantity - 1) * 2;
-  
+
     // Ensure this.itemTotal is properly calculated in calculateItemSummary
     this.tax = (this.itemTotal * 0.06).toFixed(2);
-  
+
     this.orderTotal = (
       parseFloat(this.itemTotal) +
       parseFloat(this.shipping) +
@@ -88,8 +85,7 @@ export default class CheckoutProcess {
     ).toFixed(2);
     this.displayOrderTotals();
   }
-  
-  
+
   displayOrderTotals() {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");
@@ -117,9 +113,8 @@ export default class CheckoutProcess {
     json.items = this.packageItems(this.list);
 
     try {
-      console.log({json});
+      console.log({ json });
       const res = await services.checkout(json);
-      console.log({shouldBeHere: res});
       // setLocalStorage("so-cart", []);
       localStorage.removeItem("so-cart");
       location.assign("/checkout/success.html");
@@ -129,9 +124,8 @@ export default class CheckoutProcess {
       // P.S: Passing err.data, because the error structure was customized here
       // The error object structure is as follow: { data: array[{[key: string]: string}], error: new Error}
       err.data.forEach((errorItem) => {
-        alertMessage(errorItem['message']);
-
-      })
+        alertMessage(errorItem["message"]);
+      });
     }
   }
 }

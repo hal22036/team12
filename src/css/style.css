@@ -383,6 +383,25 @@ button {
   text-decoration: underline;
 }
 
+.insert-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.inline-comment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: fit-content;
+}
+
+.inline-comment-container textarea {
+  box-sizing: border-box;
+}
 /* Start cart list card styles */
 .cart-card {
   display: grid;
