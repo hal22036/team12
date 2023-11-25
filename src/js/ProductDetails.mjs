@@ -2,6 +2,11 @@ import { getLocalStorage, setLocalStorage, updateIcon, calculateDiscountPercent 
 
 function productDetailsTemplate(product, discountPercent) {
   const discountInfo = discountPercent > 0? `<p class ="product-card__discount">Discount: ${discountPercent}%</p>`: '';
+  const colorsHTML = product.Colors.map((color, index) => `
+  <div class="color-swatch" data-color-id="${index}">
+    <img class="color-swatch-image" src="${color.ColorChipImageSrc}">
+    <p class="product__color">${color.ColorName}</p>
+  </div>`).join('');
 
   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
@@ -11,8 +16,8 @@ function productDetailsTemplate(product, discountPercent) {
       alt="${product.NameWithoutBrand}"
     />
     <p class="product-card__price">$${product.FinalPrice}</p>
-    <p class="product-card__discount">Discount: ${discountPercent}%</p>
-    <p class="product__color">${product.Colors[0].ColorName}</p>
+    ${discountInfo}
+    <div class="color-swatches">${colorsHTML}</div>
     <p class="product__description">
     ${product.DescriptionHtmlSimple}
     </p>
@@ -58,5 +63,27 @@ export default class ProductDetails {
       "afterBegin",
       productDetailsTemplate(this.product, discountPercent)
     );
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', this.handleColorSelection.bind(this));
+    });
+  }
+  handleColorSelection(event) {
+    const selectedColorId = event.currentTarget.getAttribute('data-color-id');
+    const selectedColor = this.product.Colors[selectedColorId];
+    
+    // Remove 'selected' class from all color swatches
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach(swatch => {
+      swatch.classList.remove('selected');
+    });
+
+    // Update UI (e.g., highlight the selected color)
+    event.currentTarget.classList.add('selected'); // Apply a 'selected' class in your CSS
+
+    // Perform other actions (e.g., store the selected color in component state)
+    this.selectedColor = selectedColor;
+    // Check it's working correctly with console.log
+    console.log('Selected Color:', selectedColor);
   }
 }
