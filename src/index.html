@@ -6,15 +6,13 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/41edc9108f.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./js/main.js" type="module"></script>
   </head>
   <body>
-    <button>
-      <nav>
-        <li><a href="signup.html">Sign-up page</a></li>
-      </nav>
-    </button>
-    </div>
     <header class="divider" id="header"></header>
     <main class="divider">
       <div class="hero">
@@ -136,7 +134,37 @@
           Thank you, You have been subscribed!
         </div>
       </form>
+      <div class="contain">
+        <div class="sign-box">
+          <h2>User Sign-up</h2>
+          <form>
+            <div class="input-box">
+              <div class="input-field" id="nameeField">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="name" />
+              </div>
+              <br />
+              <div class="input-field">
+                <i class="fa-solid fa-house-user"></i>
+                <input type="address" placeholder="address" />
+              </div>
+              <br />
+              <div class="input-field">
+                <i class="fa-solid fa-square-envelope"></i>
+                <input type="email" placeholder="email" />
+              </div>
+            </div>
+            <br /><br />
+            <div class="btn-field">
+              <button type="submit" id="createBtn">Create User</button>
+            </div>
+            <br />
+            <div id="message"></div>
+          </form>
+        </div>
+      </div>
     </main>
+    <br />
     <footer id="footer"></footer>
   </body>
 </html>

@@ -33,3 +33,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     sessionStorage.removeItem("formSubmitted");
   });
 });
+
+document
+  .getElementById("createBtn")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    // Display a message
+    var message = "Successfully, signed-up!";
+
+    // Update the message div with the message
+    document.getElementById("message").textContent = message;
+  });
